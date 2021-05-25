@@ -1,6 +1,8 @@
 package com.mitramandiri.test.services;
 
+import com.mitramandiri.test.entities.Employees;
 import com.mitramandiri.test.entities.Position;
+import com.mitramandiri.test.models.PageSearch;
 import com.mitramandiri.test.models.PositionRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -18,5 +20,5 @@ public interface PositionService {
 
     public Position edit(Integer id, PositionRequest request);
 
-    public Page<Position> findAll(Position search, Integer page, Integer size, Sort.Direction direction);
+    public Page<Position> findAll(PageSearch pageSearch);
 }

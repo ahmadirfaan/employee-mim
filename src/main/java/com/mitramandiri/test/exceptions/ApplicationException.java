@@ -2,7 +2,7 @@ package com.mitramandiri.test.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class ApplicationException extends RuntimeException{
+public class ApplicationException extends RuntimeException {
 
     private HttpStatus status;
 

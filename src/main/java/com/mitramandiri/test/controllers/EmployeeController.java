@@ -5,9 +5,11 @@ import com.mitramandiri.test.entities.Position;
 import com.mitramandiri.test.exceptions.EntityNotFoundException;
 import com.mitramandiri.test.models.EmployeesRequest;
 import com.mitramandiri.test.models.PageSearch;
+import com.mitramandiri.test.models.PagedList;
 import com.mitramandiri.test.models.ResponseMessage;
 import com.mitramandiri.test.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,10 +56,16 @@ public class EmployeeController {
 
 
     @GetMapping()
-    public ResponseMessage<List<Employees>> findAll(
+    public ResponseMessage<PagedList<Employees>> findAll(
             @Valid PageSearch pageSearch
     ) {
-        List<Employees> data = employeeService.findAll();
+        Page<Employees> entityPage = employeeService.findAll(pageSearch);
+        List<Employees> employeesList = entityPage.toList();
+        PagedList<Employees> data = new PagedList<>(    //Berfungsi untuk mengeliminasi data" pada JSON yang ditampilkan agar lebih informatif
+                employeesList,                                 // Dengan menyeleksi kebutuhan field data pada JSON yang diambil adalah page, size dan
+                entityPage.getNumber(),                // total elements
+                entityPage.getSize(),
+                entityPage.getTotalElements());
         return ResponseMessage.success(data);
     }
 

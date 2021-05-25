@@ -7,10 +7,13 @@ import com.mitramandiri.test.entities.Position;
 import com.mitramandiri.test.entities.enums.Gender;
 import com.mitramandiri.test.exceptions.EntityNotFoundException;
 import com.mitramandiri.test.models.EmployeesRequest;
+import com.mitramandiri.test.models.PageSearch;
 import com.mitramandiri.test.models.PositionRequest;
 import com.mitramandiri.test.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -73,7 +76,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
             findEmployees.setName(request.getName());
             findEmployees.setGender(Gender.getGender(request.getGender()));
-            findEmployees.setIdNumber(request.getIdNumber());
             findEmployees.setBirthDate(birthDateRequest);
             findEmployees.setIdPosition(positionEdit);
             findEmployees = employeeDao.save(findEmployees);
@@ -111,7 +113,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<Employees> findAll(Employees search, int page, int size, Sort.Direction direction) {
-        return null;
+    public Page<Employees> findAll(PageSearch pageSearch) {
+        Pageable pageable = PageRequest.of(pageSearch.getPage(), pageSearch.getSize());
+        return employeeDao.findAll(pageable);
     }
 }

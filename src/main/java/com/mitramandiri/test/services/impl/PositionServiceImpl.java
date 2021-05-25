@@ -3,10 +3,13 @@ package com.mitramandiri.test.services.impl;
 import com.mitramandiri.test.dao.PositionDao;
 import com.mitramandiri.test.entities.Position;
 import com.mitramandiri.test.exceptions.EntityNotFoundException;
+import com.mitramandiri.test.models.PageSearch;
 import com.mitramandiri.test.models.PositionRequest;
 import com.mitramandiri.test.services.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +75,8 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public Page<Position> findAll(Position search, Integer page, Integer size, Sort.Direction direction) {
-        return null;
+    public Page<Position> findAll(PageSearch pageSearch) {
+        Pageable pageable = PageRequest.of(pageSearch.getPage(), pageSearch.getSize());
+        return positionDao.findAll(pageable);
     }
 }

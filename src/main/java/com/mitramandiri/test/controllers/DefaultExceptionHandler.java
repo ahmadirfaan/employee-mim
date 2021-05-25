@@ -76,6 +76,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
         return handleException(status);
     }
 
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return handleBindingResult(ex.getBindingResult(), status);

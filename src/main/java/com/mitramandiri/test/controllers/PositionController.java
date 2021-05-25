@@ -61,7 +61,7 @@ public class PositionController {
 
 
     @GetMapping("/{id}")
-    public ResponseMessage<Position> findbyId(@PathVariable Integer id) {
+    public ResponseMessage<Position> findById(@PathVariable Integer id) {
         Position entity = service.findById(id);
         if(entity == null || entity.getDelete().equals(true)) {
             throw new EntityNotFoundException();

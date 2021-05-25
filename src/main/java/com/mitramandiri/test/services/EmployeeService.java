@@ -3,6 +3,7 @@ package com.mitramandiri.test.services;
 import com.mitramandiri.test.entities.Employees;
 import com.mitramandiri.test.entities.Position;
 import com.mitramandiri.test.models.EmployeesRequest;
+import com.mitramandiri.test.models.PageSearch;
 import com.mitramandiri.test.models.PositionRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -21,5 +22,5 @@ public interface EmployeeService {
 
     public List<Employees> findAll();
 
-    public Page<Employees> findAll(Employees search, int page, int size, Sort.Direction direction);
+    public Page<Employees> findAll(PageSearch pageSearch);
 }
